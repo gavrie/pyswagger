@@ -9,6 +9,8 @@ class MimeCodec:
         self.register('text/plain', PlainCodec())
         jsonCodec = JsonCodec()
         self.register('application/json', jsonCodec)
+        # Sometimes connexion returns application/problem+json with 404 for parameter errors (e.g. when a path param is %2f)
+        self.register('application/problem+json', jsonCodec)
         self.register('text/json', jsonCodec)
 
     def register(self, mime, codec):
